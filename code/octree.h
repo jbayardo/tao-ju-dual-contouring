@@ -54,6 +54,8 @@ public:
 
 	// Get type
 	virtual int32_t getType() = 0 ;
+
+    virtual ~OctreeNode() {}
 };
 
 
@@ -70,7 +72,7 @@ public:
 
 	// Minimizer
 	float mp[3] ;
-	int index ;
+	int32_t index ;
 
 	// QEF
 	float ata[6], atb[3], btb ;
@@ -184,13 +186,13 @@ public:
 
 
 	// Get type
-	int getType ( )
+	int32_t getType ( )
 	{
 		return 1 ;
 	};
 
 	// Get sign
-	int getSign ( int32_t index )
+	int32_t getSign ( int32_t index )
 	{
 		return (( signs >> index ) & 1 );
 	};
@@ -210,7 +212,7 @@ public:
 
 	// Minimizer
 	float mp[3] ;
-	int index ;
+	int32_t index ;
 
 	// QEF
 	float ata[6], atb[3], btb ;
@@ -271,13 +273,13 @@ public:
 	};
 
 	// Get type
-	int getType ( )
+	int32_t getType ( )
 	{
 		return 2 ;
 	};
 
 	// Get sign
-	int getSign ( int32_t index )
+	int32_t getSign ( int32_t index )
 	{
 		return (( signs >> index ) & 1 );
 	};
@@ -300,7 +302,7 @@ public:
 	};
 
 	// Get type
-	int getType ( )
+	int32_t getType ( )
 	{
 		return 0 ;
 	};
@@ -354,14 +356,14 @@ public:
 	OctreeNode* root ;
 
 	/// Length of grid
-	int dimen ;
-	int maxDepth ;
+	int32_t dimen ;
+	int32_t maxDepth ;
 
 	/// Has QEF?
-	int hasQEF ;
+	int32_t hasQEF ;
 
-	int faceVerts, edgeVerts, actualTris ;
-	int founds, news ;
+	int32_t faceVerts, edgeVerts, actualTris ;
+	int32_t founds, news ;
 
 public:
 	/**
@@ -433,8 +435,8 @@ private:
 	/**
 	 * Non-intersecting test and tesselation
 	 */
-	int testFace( int32_t st[3], int32_t len, int32_t dir, float v1[3], float v2[3] ) ;
-	int testEdge( int32_t st[3], int32_t len, int32_t dir, OctreeNode* node[4], float v[4][3] ) ;
+	int32_t testFace( int32_t st[3], int32_t len, int32_t dir, float v1[3], float v2[3] ) ;
+	int32_t testEdge( int32_t st[3], int32_t len, int32_t dir, OctreeNode* node[4], float v[4][3] ) ;
 	void makeFaceVertex( int32_t st[3], int32_t len, int32_t dir, OctreeNode* node1, OctreeNode* node2, float v[3] ) ;
 	void makeEdgeVertex( int32_t st[3], int32_t len, int32_t dir, OctreeNode* node[4], float mp[4][3], float v[3] ) ;
 };
