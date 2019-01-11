@@ -15,10 +15,10 @@
   License along with this library; if not, write to the Free Software
   Foundation, Inc., 59 Temple Place, Suite 330, Boston, MA  02111-1307  USA
 */
-#include "octree.h"
 #include "PLYReader.h"
 #include "PLYWriter.h"
 #include "intersection.h"
+#include "octree.h"
 #include <math.h>
 
 //#define LONG _int64
@@ -28,34 +28,32 @@
 /*	Parameters
  *	argv[1]:	name of input file (.dcf format)
  *	argv[2]:	name of output file (.ply format)
- *	argv[3]:	(OPTIONAL) name of secondary output file (.ply format) when using dual contouring, storing self-intersecting triangles.
-*/
+ *	argv[3]:	(OPTIONAL) name of secondary output file (.ply format)
+ *when using dual contouring, storing self-intersecting triangles.
+ */
 
-int main( int args, char* argv[] )
-{
-	// Reading input file
-	Octree* mytree = new Octree( argv[1] ) ;
+int32_t main(int32_t args, char *argv[]) {
+  // Reading input file
+  Octree *mytree = new Octree(argv[1]);
 
-
-	// Octree simplification; feel free to change the simplification threshold.
-	// mytree->simplify( .001f ) ;
+  // Octree simplification; feel free to change the simplification threshold.
+  // mytree->simplify( .001f ) ;
 
 #ifdef ALLOW_INTERSECTION
 
-	// Dual contouring [Ju et al. 2002]
-	mytree->genContour( argv[2] ) ;
+  // Dual contouring [Ju et al. 2002]
+  mytree->genContour(argv[2]);
 
-	// Pairwise intersection test - may take a while
-	// int num = Intersection::testIntersection( argv[2], argv[3] ) ;
-	// printf("%d intersections found!\n", num) ;
+  // Pairwise intersection test - may take a while
+  // int32_t num = Intersection::testIntersection( argv[2], argv[3] ) ;
+  // printf("%d intersections found!\n", num) ;
 
 #else
 
-	// Intersection-free dual contouring [Ju et al. 2006]
-	mytree->genContourNoInter2( argv[2] ) ;
+  // Intersection-free dual contouring [Ju et al. 2006]
+  mytree->genContourNoInter2(argv[2]);
 
 #endif
 
-	return 0;
+  return 0;
 }
-
